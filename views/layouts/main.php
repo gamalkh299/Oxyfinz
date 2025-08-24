@@ -42,6 +42,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Home', 'url' => ['/site/index']],
 
             ['label' => 'Users', 'url' => ['/user/index'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->role === 'admin'],
+            ['label'=> 'expenses', 'url' => ['/expense/index'], 'visible' => !Yii::$app->user->isGuest],
+//            ['label' => 'Categories', 'url' => ['/category/index'], 'visible' => !Yii::$app->user->isGuest],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
