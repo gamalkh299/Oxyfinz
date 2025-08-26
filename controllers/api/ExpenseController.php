@@ -110,10 +110,6 @@ class ExpenseController extends ActiveController
 
     public function actionUpdate($id)
     {
-        $params = Yii::$app->request->getBodyParams();
-        var_dump($params);
-        var_dump(Yii::$app->request->getRawBody());
-        die;
         $model = Expense::findOne($id);
 
         if (!$model) {
