@@ -49,6 +49,9 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => ['api/expense']],
+                'api/<controller>/<action>/<id:\d+>' => 'api/<controller>/<action>',
+                'api/<controller>/<action>' => 'api/<controller>/<action>'
             ],
         ],
 

@@ -58,7 +58,7 @@ class Expense extends ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'amount', 'category', 'spent_at'], 'required'],
+            [[ 'amount', 'category', 'spent_at'], 'required'],
             [['user_id', 'created_at', 'updated_at'], 'integer'],
             [['amount'], 'number'],
             [['description'], 'string'],
