@@ -15,13 +15,14 @@ use yii\filters\VerbFilter;
  */
 class AuthController extends Controller
 {
+    public $enableCsrfValidation = false;
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        
+
         $behaviors['cors'] = [
             'class' => Cors::class,
             'cors' => [
@@ -30,12 +31,12 @@ class AuthController extends Controller
                 'Access-Control-Request-Headers' => ['*'],
                 'Access-Control-Allow-Credentials' => true,
                 'Access-Control-Max-Age' => 86400,
-            ],
+        ]
         ];
 
         $behaviors['authenticator'] = [
             'class' => HttpBearerAuth::class,
-            'except' => ['login', 'register', 'options'],
+            'except' => ['login', 'register', 'logout','options'],
         ];
 
         $behaviors['verbs'] = [
@@ -69,17 +70,18 @@ class AuthController extends Controller
      */
     public function actionLogin()
     {
+
         $request = Yii::$app->request->post();
         
-        if (empty($request['username']) || empty($request['password'])) {
+        if (empty($request['email']) || empty($request['password'])) {
             return [
                 'status' => 'error',
                 'message' => 'Username and password are required.',
             ];
         }
 
-        $user = User::findByUsername($request['username']) ?: User::findByEmail($request['username']);
-        
+        $user = User::findByEmail($request['email']) ?: User::findByEmail($request['username']);
+
         if (!$user || !$user->validatePassword($request['password'])) {
             return [
                 'status' => 'error',
